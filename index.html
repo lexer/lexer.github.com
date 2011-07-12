@@ -18,6 +18,11 @@ $(function(){
 
   var watchPositionId = navigator.geolocation.watchPosition(
     function(position) {
+      $("#lat").text(position.coords.latitude);
+      $("#lng").text(position.coords.longitude);
+      $("#heading").text(position.coords.heading);
+      $("#speed").text(position.coords.speed);
+
       var latlng = new google.maps.LatLng(position.coords.latitude,position.coords.longitude);
       var marker = new google.maps.Marker({
         position: latlng
@@ -35,5 +40,11 @@ $(function(){
 </head>
 <body>
   <div id="map_canvas"></div>
+  <div id="info">
+    <p id="lng"></p>
+    <p id="lat"></p>
+    <p id="heading"></p>
+    <p id="speed"></p>
+  </div>
 </body>
 </html>
