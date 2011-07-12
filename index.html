@@ -16,7 +16,7 @@ $(function(){
   };
   var map = new google.maps.Map($("#map_canvas")[0], mapOptions);
 
-  var watchPositionId = navigator.geolocation.watchPosition(
+  var watchPositionId = navigator.geolocation.getCurrentPosition(
     function(position) {
       $("#lat").text(position.coords.latitude);
       $("#lng").text(position.coords.longitude);
