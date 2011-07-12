@@ -10,5 +10,8 @@ html, body {
 
 #info {
   position:absolute;
-
+  z-index: 100;
+  top: 40px;
+  width: 100px;
+  height: 200px;
 }
