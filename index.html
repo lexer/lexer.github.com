@@ -39,17 +39,17 @@ $(function(){
           if (prevDate) {
             var deltaTime = currentDate - prevDate;
             thresholdTime = thresholdTime + deltaTime; 
-	        $("#time").text(distance);
+	    $("#time").text(thresholdTime);
           }
         } else {
           var prevPosition = currentPosition;
           currentPosition = new google.maps.LatLng(lat, lng);
           if (prevPosition) {
-	        var deltaDistance = google.maps.geometry.spherical.computeDistanceBetween(prevPositionn, currentPosition);
+	    var deltaDistance = google.maps.geometry.spherical.computeDistanceBetween(prevPositionn, currentPosition);
             distance = distance + deltaDistance;
             $("#distance").text(distance);
           }
-	    }
+        }
         $("#speed").text(kmh);
       }      
     },
