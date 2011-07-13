@@ -21,7 +21,6 @@ $(function(){
   });
 
   var watchPositionId = navigator.geolocation.watchPosition(
-
     function(position) {
       var lat = position.coords.latitude;
       var lng = position.coords.longitude;
@@ -34,30 +33,29 @@ $(function(){
       if (speed) { 
          var kmh = speed * 3.6;  
 
-	 if (kmh < 5) {
-            var prevDate = currentDate;
-            currentDate = new Date();
-            if (prevDate) {
-              var deltaTime = currentDate - prevDate;
-              thresholdTime = thresholdTime + deltaTime; 
-	      $("#time").text(distance);
-            }
-         } else {
-            var prevPosition = currentPosition;
-            currentPosition = new google.maps.LatLng(lat, lng);
-            if (prevPosition) {
-	      var deltaDistance = google.maps.geometry.spherical.computeDistanceBetween(prevPositionn, currentPosition);
-              distance = distance + deltaDistance;
-              $("#distance").text(distance);
-            }
-	 }
-
-         $("#speed").text(kmh);
+         if (kmh < 5) {
+          var prevDate = currentDate;
+          currentDate = new Date();
+          if (prevDate) {
+            var deltaTime = currentDate - prevDate;
+            thresholdTime = thresholdTime + deltaTime; 
+	        $("#time").text(distance);
+          }
+        } else {
+          var prevPosition = currentPosition;
+          currentPosition = new google.maps.LatLng(lat, lng);
+          if (prevPosition) {
+	        var deltaDistance = google.maps.geometry.spherical.computeDistanceBetween(prevPositionn, currentPosition);
+            distance = distance + deltaDistance;
+            $("#distance").text(distance);
+          }
+	    }
+        $("#speed").text(kmh);
       }      
     },
-
     function(err) {
     }, {enableHighAccuracy:true});
+
 });
 
 </script>
