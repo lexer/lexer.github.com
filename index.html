@@ -6,8 +6,13 @@
 <title>Geo location test</title>
 <link href="styles.css" rel="stylesheet" type="text/css" />
 <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.6.1/jquery.min.js"></script>
-<!-- <script type="text/javascript" src="http://maps.googleapis.com/maps/api/js?sensor=true"></script> -->
+<script type="text/javascript" src="http://maps.google.com/maps/api/js?libraries=geometry&sensor=true"></script>
 <script type="text/javascript">
+
+var thresholdTime = 0;
+var distance = 0.0;
+var currentPosition = null;
+var currentDate = null;
 
 $(function(){
   $("reset").click(function(){ 
@@ -18,15 +23,35 @@ $(function(){
   var watchPositionId = navigator.geolocation.watchPosition(
 
     function(position) {
-
-      $("#lat").text(position.coords.latitude);
-      $("#lng").text(position.coords.longitude);
+      var lat = position.coords.latitude;
+      var lng = position.coords.longitude;
+      $("#lat").text(lat);
+      $("#lng").text(lng);
       $("#heading").text(position.coords.heading);
 
       var speed = position.coords.speed;
       
-      if (speed) {
+      if (speed) { 
          var kmh = speed * 3.6;  
+
+	 if (kmh < 5) {
+            var prevDate = currentDate;
+            currentDate = new Date();
+            if (prevDate) {
+              var deltaTime = currentDate - prevDate;
+              thresholdTime = thresholdTime + deltaTime; 
+	      $("#time").text(distance);
+            }
+         } else {
+            var prevPosition = currentPosition;
+            currentPosition = new google.maps.LatLng(lat, lng);
+            if (prevPosition) {
+	      var deltaDistance = google.maps.geometry.spherical.computeDistanceBetween(prevPositionn, currentPosition);
+              distance = distance + deltaDistance;
+              $("#distance").text(distance);
+            }
+	 }
+
          $("#speed").text(kmh);
       }      
     },
@@ -43,8 +68,8 @@ $(function(){
     <dd id="lng"></dd>
     <dt>Latitude</dt>
     <dd id="lat"></dd>
-    <dt>Heading</dt>
-    <dd id="heading (degrees)"></dd>
+    <dt>Heading(degrees)</dt>
+    <dd id="heading"></dd>
     <dt>Speed (km/h)</dt>
     <dd id="speed"></dd>
     <dt>Distance</dt>
