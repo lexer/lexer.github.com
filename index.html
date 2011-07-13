@@ -50,7 +50,7 @@ $(function(){
           var prevPosition = currentPosition;
           currentPosition = new google.maps.LatLng(lat, lng);
           if (prevPosition) {
-	    var deltaDistance = google.maps.geometry.spherical.computeDistanceBetween(prevPositionn, currentPosition);
+	    var deltaDistance = google.maps.geometry.spherical.computeDistanceBetween(prevPosition, currentPosition);
             distance = distance + deltaDistance;
             $("#distance").text(distance);
           }
