@@ -50,6 +50,7 @@ $(function(){
 	    $("#time").text(thresholdTime/1000.0);
           }
         } else {
+          currentDate = new Date();
           var prevPosition = currentPosition;
           currentPosition = new google.maps.LatLng(lat, lng);
           if (prevPosition) {
