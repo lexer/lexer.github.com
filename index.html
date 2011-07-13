@@ -20,6 +20,11 @@ $(function(){
     
   });
 
+  point1 = new google.maps.LatLng(55.160144,61.397073);
+  point2 = new google.maps.LatLng(55.162452,61.408805);
+
+  alert(google.maps.geometry.spherical.computeDistanceBetween(point1, point2)
+
   var watchPositionId = navigator.geolocation.watchPosition(
     function(position) {
       var lat = position.coords.latitude;
@@ -33,7 +38,7 @@ $(function(){
       if (speed) { 
          var kmh = speed * 3.6;  
 
-         if (kmh < 5) {
+         if (kmh < 3) {
           var prevDate = currentDate;
           currentDate = new Date();
           if (prevDate) {
