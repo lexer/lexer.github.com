@@ -23,7 +23,7 @@ $(function(){
   point1 = new google.maps.LatLng(55.160144,61.397073);
   point2 = new google.maps.LatLng(55.162452,61.408805);
 
-  alert(google.maps.geometry.spherical.computeDistanceBetween(point1, point2)
+  alert(google.maps.geometry.spherical.computeDistanceBetween(point1, point2));
 
   var watchPositionId = navigator.geolocation.watchPosition(
     function(position) {
