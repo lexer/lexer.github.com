@@ -5,7 +5,7 @@
 <meta http-equiv="content-type" content="text/html; charset=UTF-8"/>
 <title>Geo location test</title>
 <link href="styles.css" rel="stylesheet" type="text/css" />
-<script type="text/javascript" src="timespan.js"></script
+<script type="text/javascript" src="timespan.js"></script>
 <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.6.1/jquery.min.js"></script>
 <script type="text/javascript" src="http://maps.google.com/maps/api/js?libraries=geometry&sensor=true"></script>
 <script type="text/javascript">
@@ -16,23 +16,18 @@ var currentPosition = null;
 var currentDate = null;
 
 $(function(){
-  $("reset").click(function(){ 
-    
-    
-  });
-
-  var point1 = new google.maps.LatLng(55.160144,61.397073);
+  /*var point1 = new google.maps.LatLng(55.160144,61.397073);
   var point2 = new google.maps.LatLng(55.162452,61.408805);
 
   alert(google.maps.geometry.spherical.computeDistanceBetween(point1, point2));
   
   var date1 = new Date();
 
-  setTimeout(function(){
+  window.setTimeout(function(){
     date2 = new Date();
-    var timeSpan = new TimeSpan(date1-date2);
-    alert(timeSpan);
-  },3000);
+    var timeSpan = new TimeSpan(date2-date1);
+    alert(timeSpan.seconds);
+  },3000);*/
 
   var watchPositionId = navigator.geolocation.watchPosition(
     function(position) {
@@ -53,7 +48,7 @@ $(function(){
           if (prevDate) {
             var deltaTime = currentDate - prevDate;
             thresholdTime = thresholdTime + deltaTime; 
-	    $("#time").text(thresholdTime);
+	    $("#time").text(new TimeSpan(thresholdTime).seconds);
           }
         } else {
           var prevPosition = currentPosition;
@@ -61,7 +56,7 @@ $(function(){
           if (prevPosition) {
 	    var deltaDistance = google.maps.geometry.spherical.computeDistanceBetween(prevPosition, currentPosition);
             distance = distance + deltaDistance;
-            $("#distance").text(distance);
+            $("#distance").text(distance/1000.0);
           }
         }
         $("#speed").text(kmh);
@@ -84,11 +79,10 @@ $(function(){
     <dd id="heading"></dd>
     <dt>Speed (km/h)</dt>
     <dd id="speed"></dd>
-    <dt>Distance</dt>
+    <dt>Distance above threshold (km)</dt>
     <dd id="distance"></dd>
-    <dt>Time below threshold</dt>
+    <dt>Time below threshold (seconds)</dt>
     <dd id="time"></dd>
   </dl>
-  <button id="reset">Reset</button>
 </body>
 </html>
