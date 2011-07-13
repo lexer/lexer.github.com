@@ -6,45 +6,39 @@
 <title>Geo location test</title>
 <link href="styles.css" rel="stylesheet" type="text/css" />
 <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.6.1/jquery.min.js"></script>
-<script type="text/javascript" src="http://maps.googleapis.com/maps/api/js?sensor=true"></script>
+<!-- <script type="text/javascript" src="http://maps.googleapis.com/maps/api/js?sensor=true"></script> -->
 <script type="text/javascript">
 
 $(function(){
-  var mapOptions = {
-    zoom: 16,
-    mapTypeId: google.maps.MapTypeId.ROADMAP
-  };
-  var map = new google.maps.Map($("#map_canvas")[0], mapOptions);
+  var watchPositionId = navigator.geolocation.watchPosition(
 
-  var watchPositionId = navigator.geolocation.getCurrentPosition(
     function(position) {
       $("#lat").text(position.coords.latitude);
       $("#lng").text(position.coords.longitude);
       $("#heading").text(position.coords.heading);
       $("#speed").text(position.coords.speed);
-
-      var latlng = new google.maps.LatLng(position.coords.latitude,position.coords.longitude);
-      var marker = new google.maps.Marker({
-        position: latlng
-      }); 
-
-      marker.setMap(map);  
-      map.setCenter(latlng);
     },
 
     function(err) {
-    },
-    {});
+    }, {enableHighAccuracy:true} );
 });
 </script>
 </head>
 <body>
-  <div id="map_canvas"></div>
-  <div id="info">
-    <p id="lng"></p>
-    <p id="lat"></p>
-    <p id="heading"></p>
-    <p id="speed"></p>
-  </div>
+  <dl>
+    <dt>Longitude</dt>
+    <dd id="lng"></dd>
+    <dt>Latitude</dt>
+    <dd id="lat"></dd>
+    <dt>Heading</dt>
+    <dd id="heading (degrees)"></dd>
+    <dt>Speed (km/h)</dt>
+    <dd id="speed"></dd>
+    <dt>Distance</dt>
+    <dd id="distance"></dd>
+    <dt>Time below threshold</dt>
+    <dd id="time"></dd>
+  </dl>
+  <button id="reset">Reset</button>
 </body>
 </html>
