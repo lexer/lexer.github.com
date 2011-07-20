@@ -30,8 +30,8 @@ $(function(){
 
   var watchPositionId = navigator.geolocation.watchPosition(
     function(position) {
-      var lat = position.coords.latitude;
-      var lng = position.coords.longitude;
+      var lat = parseFloat(position.coords.latitude);
+      var lng = parseFloat(position.coords.longitude);
       $("#lat").text(lat);
       $("#lng").text(lng);
       $("#heading").text(position.coords.heading);
